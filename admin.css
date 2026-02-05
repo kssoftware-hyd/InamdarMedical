@@ -1,0 +1,372 @@
+/* Admin Dashboard Styles */
+
+body {
+    background-color: #f5f7fa;
+}
+
+.admin-container {
+    min-height: calc(100vh - 56px);
+    padding-top: 2rem;
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: #fff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-card h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-card p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Statistics Cards */
+.stat-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+    border-left: 5px solid;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+}
+
+.stat-primary {
+    border-color: var(--primary-color);
+}
+
+.stat-warning {
+    border-color: #f39c12;
+}
+
+.stat-success {
+    border-color: #27ae60;
+}
+
+.stat-info {
+    border-color: var(--accent-color);
+}
+
+.stat-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.stat-primary .stat-icon {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+.stat-warning .stat-icon {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.stat-success .stat-icon {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+}
+
+.stat-info .stat-icon {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--light-accent) 100%);
+}
+
+.stat-content h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.stat-content p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 1rem;
+}
+
+/* Admin Card */
+.admin-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.nav-tabs {
+    border-bottom: 2px solid #e0e0e0;
+    padding: 1rem 1.5rem 0;
+}
+
+.nav-tabs .nav-link {
+    color: #7f8c8d;
+    font-weight: 600;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px 10px 0 0;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--primary-color);
+    background-color: rgba(10, 77, 104, 0.05);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary-color);
+    background-color: rgba(10, 77, 104, 0.1);
+    border-bottom: 3px solid var(--accent-color);
+}
+
+.tab-content {
+    padding: 2rem;
+}
+
+/* Table Controls */
+.table-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.search-input {
+    max-width: 400px;
+    padding: 0.8rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(5, 191, 219, 0.25);
+}
+
+/* Admin Table */
+.admin-table {
+    margin-top: 1rem;
+}
+
+.admin-table thead {
+    background: var(--light-bg);
+}
+
+.admin-table thead th {
+    font-weight: 600;
+    color: var(--primary-color);
+    border: none;
+    padding: 1rem;
+    white-space: nowrap;
+}
+
+.admin-table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.admin-table tbody tr:hover {
+    background-color: rgba(10, 77, 104, 0.02);
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-processing {
+    background-color: #cfe2ff;
+    color: #084298;
+}
+
+.status-completed {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-cancelled {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+/* Action Buttons */
+.action-btn {
+    padding: 0.5rem 0.8rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin: 0 0.2rem;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-view {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+.btn-view:hover {
+    background: var(--secondary-color);
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+.btn-status {
+    background: #28a745;
+    color: #fff;
+}
+
+.btn-status:hover {
+    background: #218838;
+}
+
+/* Order Detail Modal */
+.order-detail-section {
+    margin-bottom: 1.5rem;
+}
+
+.order-detail-section h5 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.detail-row {
+    display: flex;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    width: 150px;
+}
+
+.detail-value {
+    color: #7f8c8d;
+    flex: 1;
+}
+
+.medicine-list {
+    list-style: none;
+    padding: 0;
+}
+
+.medicine-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.medicine-list li:last-child {
+    border-bottom: none;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .welcome-card h1 {
+        font-size: 2rem;
+    }
+    
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-card {
+        padding: 1.5rem;
+    }
+    
+    .welcome-card h1 {
+        font-size: 1.5rem;
+    }
+    
+    .stat-content h3 {
+        font-size: 2rem;
+    }
+    
+    .admin-card {
+        border-radius: 15px;
+    }
+    
+    .tab-content {
+        padding: 1rem;
+    }
+    
+    .search-input {
+        max-width: 100%;
+    }
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #7f8c8d;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h4 {
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,237 @@
+/* About Page Styles */
+
+.page-header {
+    padding: 10rem 0 5rem;
+    background: var(--gradient-1);
+    text-align: center;
+    color: #fff;
+}
+
+.page-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.page-subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+}
+
+.about-main-section {
+    padding: 5rem 0;
+}
+
+.about-image img {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
+}
+
+.lead {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+/* Services Detail Section */
+.services-detail-section {
+    padding: 4rem 0;
+    background: var(--light-bg);
+}
+
+.service-detail-card {
+    background: #fff;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.service-detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.service-detail-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--gradient-2);
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.service-detail-card h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.service-detail-card p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-detail-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.service-detail-card ul li {
+    padding: 0.7rem 0;
+    padding-left: 2rem;
+    position: relative;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.service-detail-card ul li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: var(--success-color);
+}
+
+.service-image {
+    margin-top: 2rem;
+}
+
+.service-image img {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.hospital-care {
+    background: linear-gradient(135deg, rgba(10, 77, 104, 0.05) 0%, rgba(8, 131, 149, 0.05) 100%);
+}
+
+.two-column-list {
+    column-count: 2;
+    column-gap: 2rem;
+}
+
+/* Why Choose About Section */
+.why-choose-about {
+    padding: 5rem 0;
+    background: var(--gradient-1);
+}
+
+.trust-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    text-align: center;
+    color: #fff;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.trust-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-10px);
+}
+
+.trust-card i {
+    font-size: 3rem;
+    color: var(--light-accent);
+    margin-bottom: 1rem;
+}
+
+.trust-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.trust-card p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Promise Section */
+.promise-section {
+    padding: 5rem 0;
+    background: #fff;
+}
+
+.promise-list {
+    margin-top: 3rem;
+}
+
+.promise-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background: var(--light-bg);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.promise-item:hover {
+    background: var(--accent-color);
+    color: #fff;
+    transform: translateX(10px);
+}
+
+.promise-item i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.promise-item:hover i {
+    color: #fff;
+}
+
+.promise-item span {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .page-title {
+        font-size: 3rem;
+    }
+    
+    .two-column-list {
+        column-count: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .service-detail-card {
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .promise-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
