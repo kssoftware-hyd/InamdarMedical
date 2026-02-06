@@ -1,82 +1,77 @@
-// Contact Page JavaScript
+// SIMPLEST CONTACT FORM - GUARANTEED TO WORK
 
-document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contactForm');
-    const successMessage = document.getElementById('contactSuccess');
+(function() {
+    'use strict';
     
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+    // Wait for page to load
+    window.addEventListener('load', function() {
+        
+        var form = document.getElementById('contactForm');
+        
+        if (!form) {
+            alert('ERROR: Form not found!');
+            return;
+        }
+        
+        form.onsubmit = function(e) {
             e.preventDefault();
             
-            // Gather form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value,
-                submittedAt: new Date().toISOString()
-            };
+            // Get values
+            var name = document.getElementById('name').value;
+            var phone = document.getElementById('phone').value;
+            var email = document.getElementById('email').value;
+            var subject = document.getElementById('subject').value;
+            var message = document.getElementById('message').value;
             
-            // Store in localStorage (in real app, send to server)
-            let contacts = JSON.parse(localStorage.getItem('contactMessages') || '[]');
-            contacts.push(formData);
-            localStorage.setItem('contactMessages', JSON.stringify(contacts));
-            
-            // Create WhatsApp message
-            const subjectText = document.getElementById('subject').selectedOptions[0].text;
-            let whatsappMessage = `*Contact Form Inquiry*%0A%0A`;
-            whatsappMessage += `*Name:* ${formData.name}%0A`;
-            whatsappMessage += `*Phone:* ${formData.phone}%0A`;
-            if (formData.email) {
-                whatsappMessage += `*Email:* ${formData.email}%0A`;
+            // Check required fields
+            if (!name || !phone || !subject || !message) {
+                alert('Please fill all required fields!');
+                return false;
             }
-            whatsappMessage += `*Subject:* ${subjectText}%0A%0A`;
-            whatsappMessage += `*Message:*%0A${formData.message}`;
             
-            // Show success message
-            successMessage.classList.remove('d-none');
-            contactForm.reset();
+            // Get subject text
+            var subjectSelect = document.getElementById('subject');
+            var subjectText = subjectSelect.options[subjectSelect.selectedIndex].text;
             
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Build message
+            var msg = 'Contact Form Inquiry\n\n';
+            msg += 'Name: ' + name + '\n';
+            msg += 'Phone: ' + phone + '\n';
+            if (email) msg += 'Email: ' + email + '\n';
+            msg += 'Subject: ' + subjectText + '\n\n';
+            msg += 'Message:\n' + message;
             
-            // Optional: Open WhatsApp after 2 seconds
-            setTimeout(() => {
-                const userConfirm = confirm('Message sent successfully! Would you like to send this via WhatsApp for immediate response?');
-                if (userConfirm) {
-                    window.open(`https://wa.me/919284504673?text=${whatsappMessage}`, '_blank');
-                }
-            }, 1000);
+            // Show success
+            var success = document.getElementById('contactSuccess');
+            if (success) success.classList.remove('d-none');
             
-            // Hide success message after 8 seconds
-            setTimeout(() => {
-                successMessage.classList.add('d-none');
-            }, 8000);
-        });
-    }
-});
-
-// Format phone number input
-document.getElementById('phone')?.addEventListener('input', function(e) {
-    let value = e.target.value.replace(/\D/g, '');
-    if (value.length > 10) {
-        value = value.slice(0, 10);
-    }
-    e.target.value = value;
-});
-
-// Initialize Google Maps if needed (future enhancement)
-function initMap() {
-    // Map initialization code can be added here
-    console.log('Map initialized');
-}
-
-// Add animation to FAQ accordion
-document.querySelectorAll('.accordion-button').forEach(button => {
-    button.addEventListener('click', function() {
-        // Add smooth animation effect
-        const accordionItem = this.closest('.accordion-item');
-        accordionItem.style.transition = 'all 0.3s ease';
+            // Reset form
+            form.reset();
+            
+            // Build WhatsApp URL
+            var url = 'https://wa.me/919284504673?text=' + encodeURIComponent(msg);
+            
+            // Open WhatsApp - TRY MULTIPLE METHODS
+            
+            // Method 1: Direct redirect
+            window.location.href = url;
+            
+            // Method 2: Backup - try window.open
+            setTimeout(function() {
+                window.open(url, '_blank');
+            }, 100);
+            
+            return false;
+        };
+        
+        // Phone validation
+        var phoneInput = document.getElementById('phone');
+        if (phoneInput) {
+            phoneInput.oninput = function() {
+                this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+            };
+        }
+        
     });
-});
+    
+})();

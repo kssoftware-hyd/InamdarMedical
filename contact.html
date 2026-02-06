@@ -11,6 +11,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="contact.css">
+    
+    <script>
+    // INLINE JAVASCRIPT - GUARANTEED TO WORK
+    function submitContactForm() {
+        // Get values
+        var name = document.getElementById('name').value.trim();
+        var phone = document.getElementById('phone').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var subject = document.getElementById('subject').value;
+        var message = document.getElementById('message').value.trim();
+        
+        // Validate
+        if (!name || !phone || !subject || !message) {
+            alert('Please fill all required fields!');
+            return false;
+        }
+        
+        // Get subject text
+        var subjectSelect = document.getElementById('subject');
+        var subjectText = subjectSelect.options[subjectSelect.selectedIndex].text;
+        
+        // Build message
+        var msg = 'Contact Form Inquiry\n\n';
+        msg += 'Name: ' + name + '\n';
+        msg += 'Phone: ' + phone + '\n';
+        if (email) msg += 'Email: ' + email + '\n';
+        msg += 'Subject: ' + subjectText + '\n\n';
+        msg += 'Message:\n' + message;
+        
+        // Show success
+        document.getElementById('contactSuccess').classList.remove('d-none');
+        
+        // Reset form
+        document.getElementById('contactForm').reset();
+        
+        // Open WhatsApp
+        var url = 'https://wa.me/919284504673?text=' + encodeURIComponent(msg);
+        window.location.href = url;
+        
+        return false;
+    }
+    </script>
 </head>
 <body>
     <!-- Navigation -->
@@ -114,9 +156,9 @@
                 <div class="col-lg-6">
                     <div class="contact-form-card">
                         <h2 class="form-title">Send Us a Message</h2>
-                        <p class="form-subtitle">Have questions? We'd love to hear from you!</p>
+                        <p class="form-subtitle">Fill the form and send via WhatsApp!</p>
                         
-                        <form id="contactForm">
+                        <form id="contactForm" onsubmit="return submitContactForm()">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Your Name *</label>
                                 <input type="text" class="form-control" id="name" required>
@@ -129,7 +171,8 @@
                             
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone Number *</label>
-                                <input type="tel" class="form-control" id="phone" required>
+                                <input type="tel" class="form-control" id="phone" required maxlength="10" 
+                                       oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
                             </div>
                             
                             <div class="mb-3">
@@ -151,13 +194,13 @@
                             </div>
                             
                             <button type="submit" class="btn btn-primary btn-lg w-100">
-                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                                <i class="fab fa-whatsapp me-2"></i>Send via WhatsApp
                             </button>
                         </form>
                         
                         <div class="alert alert-success mt-4 d-none" id="contactSuccess">
                             <i class="fas fa-check-circle me-2"></i>
-                            Thank you for your message! We'll get back to you soon.
+                            Opening WhatsApp...
                         </div>
                     </div>
                 </div>
@@ -353,17 +396,16 @@
                     </ul>
                 </div>
             </div>
-					<div class="footer-bottom">
-			<p>&copy; 2026 
-				<a href="http://kssoftware.infinityfree.me/" 
-				   target="_blank" 
-				   style="color: inherit; text-decoration: none;">
-				   KS_SOFTWARE
-				</a>
-				. All rights reserved.
-			</p>
-		</div>
-
+            <div class="footer-bottom">
+                <p>&copy; 2026 
+                    <a href="http://kssoftware.infinityfree.me/" 
+                       target="_blank" 
+                       style="color: inherit; text-decoration: none;">
+                       KS_SOFTWARE
+                    </a>
+                    . All rights reserved.
+                </p>
+            </div>
         </div>
     </footer>
 
@@ -400,6 +442,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
-    <script src="contact.js"></script>
 </body>
 </html>

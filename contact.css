@@ -93,6 +93,27 @@
     margin-bottom: 2rem;
 }
 
+.form-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(5, 191, 219, 0.25);
+}
+
+/* Map Card */
 .map-card {
     background: #fff;
     padding: 2rem;
@@ -141,6 +162,7 @@
     text-align: center;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    height: 100%;
 }
 
 .quick-contact-card:hover {
@@ -219,17 +241,66 @@
     line-height: 1.6;
 }
 
-/* Responsive */
+/* Success Alert Styling */
+.alert-success {
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+    color: #0f5132;
+    border-radius: 10px;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Button Styling */
+.btn-primary {
+    background: var(--gradient-2);
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(5, 191, 219, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* Responsive Design */
 @media (max-width: 992px) {
     .contact-form-card,
     .map-card {
         margin-bottom: 2rem;
     }
+    
+    .form-title {
+        font-size: 2rem;
+    }
 }
 
 @media (max-width: 768px) {
     .form-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .contact-form-card {
@@ -243,4 +314,14 @@
     .quick-contact-card {
         margin-bottom: 2rem;
     }
+    
+    .quick-contact-card i {
+        font-size: 3rem;
+    }
+}
+
+/* Loading State for Button */
+.btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
