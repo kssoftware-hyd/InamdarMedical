@@ -9,12 +9,454 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="order.css">
+    
+    <!-- INLINE STYLES - ALL CSS IN ONE FILE -->
+    <style>
+        :root {
+            --primary-color: #0a4d68;
+            --secondary-color: #088395;
+            --accent-color: #05bfdb;
+            --light-accent: #00ffca;
+            --dark-bg: #001524;
+            --light-bg: #f8f9fa;
+            --text-dark: #2c3e50;
+            --gradient-1: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            --gradient-2: linear-gradient(135deg, #088395 0%, #05bfdb 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(10, 77, 104, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff !important;
+        }
+
+        .brand-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .navbar-brand i {
+            color: var(--light-accent);
+            font-size: 1.8rem;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--light-accent) !important;
+        }
+
+        .admin-link {
+            background: rgba(0, 255, 202, 0.1);
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            margin-left: 1rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 10rem 0 5rem;
+            background: var(--gradient-1);
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* Order Methods Section */
+        .order-methods-section {
+            padding: 4rem 0;
+        }
+
+        .method-card {
+            background: #fff;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .method-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .method-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #fff;
+        }
+
+        .whatsapp-icon {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+        }
+
+        .method-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .method-card p {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Order Form Section */
+        .order-form-section {
+            padding: 4rem 0;
+            background: var(--light-bg);
+        }
+
+        .form-card {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .form-header i {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .form-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .form-section-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.2rem rgba(5, 191, 219, 0.25);
+        }
+
+        .medicine-item {
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .medicine-item:hover {
+            border-color: var(--accent-color);
+        }
+
+        .remove-medicine {
+            padding: 0.8rem;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .form-check-label {
+            cursor: pointer;
+            padding: 0.5rem 0;
+        }
+
+        /* How It Works Section */
+        .how-it-works-section {
+            padding: 5rem 0;
+            background: #fff;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(10, 77, 104, 0.3);
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin: 2rem 0 1rem;
+        }
+
+        .step-card h4 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .step-card p {
+            color: #7f8c8d;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-bg);
+            color: #ecf0f1;
+            padding: 4rem 0 1rem;
+        }
+
+        .footer-brand {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--light-accent);
+        }
+
+        .footer-desc {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            color: var(--light-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links,
+        .footer-info {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li,
+        .footer-info li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--light-accent);
+        }
+
+        .footer-info li {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #128c7e;
+            color: #fff;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--gradient-2);
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(5, 191, 219, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            border: none;
+            border-radius: 50px;
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 50px;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Alert */
+        .alert-success {
+            background-color: #d1e7dd;
+            border-color: #badbcc;
+            color: #0f5132;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            .form-card {
+                padding: 2rem 1.5rem;
+            }
+            .medicine-item {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
                 <i class="fas fa-heartbeat me-2"></i>
@@ -25,23 +467,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="order.html">Order Medicine</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link admin-link" href="#" data-bs-toggle="modal" data-bs-target="#adminModal">
-                            <i class="fas fa-user-shield"></i> Admin
-                        </a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="order.html">Order Medicine</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link admin-link" href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin</a></li>
                 </ul>
             </div>
         </div>
@@ -65,7 +495,7 @@
                             <i class="fas fa-shopping-cart"></i>
                         </div>
                         <h3>Order via Website</h3>
-                        <p>Fill out the form below with your medicine requirements and we'll prepare your order</p>
+                        <p>Fill out the form below with your medicine requirements</p>
                         <a href="#orderForm" class="btn btn-primary">Order Now</a>
                     </div>
                 </div>
@@ -75,7 +505,7 @@
                             <i class="fab fa-whatsapp"></i>
                         </div>
                         <h3>Order via WhatsApp</h3>
-                        <p>Send us your medicine list directly on WhatsApp for quick processing</p>
+                        <p>Send us your medicine list directly on WhatsApp</p>
                         <a href="https://wa.me/919284504673?text=Hello%2C%20I%20would%20like%20to%20order%20medicines" target="_blank" class="btn btn-success">
                             <i class="fab fa-whatsapp me-2"></i>WhatsApp Now
                         </a>
@@ -94,60 +524,53 @@
                         <div class="form-header">
                             <i class="fas fa-file-medical"></i>
                             <h2>Medicine Order Form</h2>
-                            <p>Please fill in the details below to place your order</p>
+                            <p>Fill details and send directly to WhatsApp</p>
                         </div>
                         
-                        <form id="medicineOrderForm">
+                        <form id="medicineOrderForm" onsubmit="submitOrder(); return false;">
                             <div class="row g-3">
-                                <!-- Personal Information -->
                                 <div class="col-12">
-                                    <h4 class="form-section-title">
-                                        <i class="fas fa-user me-2"></i>Personal Information
-                                    </h4>
+                                    <h4 class="form-section-title"><i class="fas fa-user me-2"></i>Personal Information</h4>
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <label for="customerName" class="form-label">Full Name *</label>
+                                    <label class="form-label">Full Name *</label>
                                     <input type="text" class="form-control" id="customerName" required>
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <label for="customerMobile" class="form-label">Mobile Number *</label>
-                                    <input type="tel" class="form-control" id="customerMobile" pattern="[0-9]{10}" required>
+                                    <label class="form-label">Mobile Number *</label>
+                                    <input type="tel" class="form-control" id="customerMobile" maxlength="10" 
+                                           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)" required>
                                 </div>
                                 
                                 <div class="col-12">
-                                    <label for="customerEmail" class="form-label">Email (Optional)</label>
+                                    <label class="form-label">Email (Optional)</label>
                                     <input type="email" class="form-control" id="customerEmail">
                                 </div>
                                 
-                                <!-- Address Information -->
                                 <div class="col-12 mt-4">
-                                    <h4 class="form-section-title">
-                                        <i class="fas fa-map-marker-alt me-2"></i>Delivery Address
-                                    </h4>
+                                    <h4 class="form-section-title"><i class="fas fa-map-marker-alt me-2"></i>Delivery Address</h4>
                                 </div>
                                 
                                 <div class="col-12">
-                                    <label for="customerAddress" class="form-label">Complete Address *</label>
+                                    <label class="form-label">Complete Address *</label>
                                     <textarea class="form-control" id="customerAddress" rows="3" required></textarea>
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <label for="customerCity" class="form-label">City *</label>
+                                    <label class="form-label">City *</label>
                                     <input type="text" class="form-control" id="customerCity" value="Bhokar" required>
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <label for="customerPincode" class="form-label">Pincode *</label>
-                                    <input type="text" class="form-control" id="customerPincode" pattern="[0-9]{6}" required>
+                                    <label class="form-label">Pincode *</label>
+                                    <input type="text" class="form-control" id="customerPincode" maxlength="6"
+                                           oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)" required>
                                 </div>
                                 
-                                <!-- Medicine Details -->
                                 <div class="col-12 mt-4">
-                                    <h4 class="form-section-title">
-                                        <i class="fas fa-pills me-2"></i>Medicine Details
-                                    </h4>
+                                    <h4 class="form-section-title"><i class="fas fa-pills me-2"></i>Medicine Details</h4>
                                 </div>
                                 
                                 <div id="medicineItems">
@@ -171,58 +594,41 @@
                                 </div>
                                 
                                 <div class="col-12">
-                                    <button type="button" class="btn btn-outline-primary" id="addMedicineBtn">
+                                    <button type="button" class="btn btn-outline-primary" onclick="addMedicine()">
                                         <i class="fas fa-plus me-2"></i>Add More Medicine
                                     </button>
                                 </div>
                                 
-                                <!-- Additional Information -->
                                 <div class="col-12 mt-4">
-                                    <label for="prescriptionNote" class="form-label">
-                                        <i class="fas fa-file-prescription me-2"></i>Prescription / Additional Notes
-                                    </label>
-                                    <textarea class="form-control" id="prescriptionNote" rows="3" placeholder="Add any special instructions or notes here"></textarea>
-                                    <small class="text-muted">
-                                        <i class="fas fa-info-circle me-1"></i>
-                                        For prescription medicines, please upload prescription when we contact you
-                                    </small>
+                                    <label class="form-label"><i class="fas fa-file-prescription me-2"></i>Additional Notes</label>
+                                    <textarea class="form-control" id="prescriptionNote" rows="3"></textarea>
                                 </div>
                                 
-                                <!-- Delivery Options -->
                                 <div class="col-12 mt-4">
-                                    <h4 class="form-section-title">
-                                        <i class="fas fa-truck me-2"></i>Delivery Option
-                                    </h4>
+                                    <h4 class="form-section-title"><i class="fas fa-truck me-2"></i>Delivery Option</h4>
                                 </div>
                                 
                                 <div class="col-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="deliveryOption" id="homeDelivery" value="delivery" checked>
-                                        <label class="form-check-label" for="homeDelivery">
-                                            <strong>Home Delivery</strong> - We'll deliver to your address
-                                        </label>
+                                        <label class="form-check-label" for="homeDelivery"><strong>Home Delivery</strong></label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="deliveryOption" id="storePickup" value="pickup">
-                                        <label class="form-check-label" for="storePickup">
-                                            <strong>Store Pickup</strong> - I'll collect from the store
-                                        </label>
+                                        <label class="form-check-label" for="storePickup"><strong>Store Pickup</strong></label>
                                     </div>
                                 </div>
                                 
-                                <!-- Submit Button -->
                                 <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-primary btn-lg w-100">
-                                        <i class="fas fa-paper-plane me-2"></i>Submit Order
+                                    <button type="submit" class="btn btn-success btn-lg w-100">
+                                        <i class="fab fa-whatsapp me-2"></i>Send Order via WhatsApp
                                     </button>
                                 </div>
                             </div>
                         </form>
                         
-                        <!-- Success Message -->
                         <div class="alert alert-success mt-4 d-none" id="successMessage">
-                            <i class="fas fa-check-circle me-2"></i>
-                            <strong>Order Submitted Successfully!</strong> We will contact you shortly to confirm your order.
+                            <i class="fas fa-check-circle me-2"></i><strong>Opening WhatsApp...</strong>
                         </div>
                     </div>
                 </div>
@@ -246,15 +652,15 @@
                         <div class="step-number">1</div>
                         <i class="fas fa-edit step-icon"></i>
                         <h4>Fill Form</h4>
-                        <p>Enter your details and medicine requirements</p>
+                        <p>Enter details and medicines</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="step-card">
                         <div class="step-number">2</div>
-                        <i class="fas fa-phone step-icon"></i>
-                        <h4>We Call</h4>
-                        <p>Our team will contact you for confirmation</p>
+                        <i class="fab fa-whatsapp step-icon"></i>
+                        <h4>Send to WhatsApp</h4>
+                        <p>Order sent via WhatsApp</p>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -262,7 +668,7 @@
                         <div class="step-number">3</div>
                         <i class="fas fa-box step-icon"></i>
                         <h4>We Prepare</h4>
-                        <p>We'll pack your medicines carefully</p>
+                        <p>We pack your medicines</p>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -270,7 +676,7 @@
                         <div class="step-number">4</div>
                         <i class="fas fa-shipping-fast step-icon"></i>
                         <h4>Delivery</h4>
-                        <p>Get it delivered or collect from store</p>
+                        <p>Delivered or pickup</p>
                     </div>
                 </div>
             </div>
@@ -282,10 +688,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4">
-                    <h3 class="footer-brand">
-                        <i class="fas fa-heartbeat me-2"></i>Inamdar Medical
-                    </h3>
-                    <p class="footer-desc">Your trusted healthcare partner in Bhokar, providing quality medical care and genuine medicines.</p>
+                    <h3 class="footer-brand"><i class="fas fa-heartbeat me-2"></i>Inamdar Medical</h3>
+                    <p class="footer-desc">Your trusted healthcare partner in Bhokar.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
@@ -313,57 +717,133 @@
                     <h4 class="footer-title">Contact</h4>
                     <ul class="footer-info">
                         <li><i class="fas fa-phone me-2"></i>092845 04673</li>
-                        <li><i class="fas fa-map-marker-alt me-2"></i>Bhokar - Kinwat Rd, Beside Gramin Bank, Bhokar, Maharashtra 431801</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Bhokar - Kinwat Rd, Bhokar 431801</li>
                     </ul>
                 </div>
             </div>
-						<div class="footer-bottom">
-				<p>&copy; 2026 
-					<a href="http://kssoftware.infinityfree.me/" 
-					   target="_blank" 
-					   style="color: inherit; text-decoration: none;">
-					   KS_SOFTWARE
-					</a>
-					. All rights reserved.
-				</p>
-			</div>
-
+            <div class="footer-bottom">
+                <p>&copy; 2026 <a href="http://kssoftware.infinityfree.me/" target="_blank" style="color: inherit; text-decoration: none;">KS_SOFTWARE</a>. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Admin Login Modal -->
-    <div class="modal fade" id="adminModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><i class="fas fa-user-shield me-2"></i>Admin Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="adminLoginForm">
-                        <div class="mb-3">
-                            <label for="adminUsername" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="adminUsername" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="adminPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="adminPassword" required>
-                        </div>
-                        <div class="alert alert-danger d-none" id="loginError"></div>
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- WhatsApp Float Button -->
     <a href="https://wa.me/919284504673" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
-    <script src="order.js"></script>
+    
+    <!-- INLINE JAVASCRIPT -->
+    <script>
+        var medicineCount = 1;
+        
+        function addMedicine() {
+            medicineCount++;
+            var newItem = document.createElement('div');
+            newItem.className = 'medicine-item mb-3';
+            newItem.innerHTML = `
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <label class="form-label">Medicine Name *</label>
+                        <input type="text" class="form-control medicine-name" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Quantity *</label>
+                        <input type="number" class="form-control medicine-quantity" min="1" value="1" required>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="button" class="btn btn-danger w-100 remove-medicine" onclick="removeMedicine(this)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('medicineItems').appendChild(newItem);
+            updateRemoveButtons();
+        }
+        
+        function removeMedicine(btn) {
+            btn.closest('.medicine-item').remove();
+            medicineCount--;
+            updateRemoveButtons();
+        }
+        
+        function updateRemoveButtons() {
+            var btns = document.querySelectorAll('.remove-medicine');
+            btns.forEach(function(btn) {
+                btn.disabled = btns.length <= 1;
+            });
+        }
+        
+        function submitOrder() {
+            var name = document.getElementById('customerName').value.trim();
+            var mobile = document.getElementById('customerMobile').value.trim();
+            var email = document.getElementById('customerEmail').value.trim();
+            var address = document.getElementById('customerAddress').value.trim();
+            var city = document.getElementById('customerCity').value.trim();
+            var pincode = document.getElementById('customerPincode').value.trim();
+            var note = document.getElementById('prescriptionNote').value.trim();
+            var delivery = document.querySelector('input[name="deliveryOption"]:checked').value;
+            
+            if (!name || !mobile || !address || !city || !pincode) {
+                alert('Please fill all required fields!');
+                return false;
+            }
+            
+            var medNames = document.querySelectorAll('.medicine-name');
+            var medQty = document.querySelectorAll('.medicine-quantity');
+            var medicines = [];
+            
+            medNames.forEach(function(input, i) {
+                if (input.value.trim()) {
+                    medicines.push({
+                        name: input.value.trim(),
+                        qty: medQty[i].value
+                    });
+                }
+            });
+            
+            if (medicines.length === 0) {
+                alert('Please add at least one medicine!');
+                return false;
+            }
+            
+            var orderId = 'ORD' + Date.now();
+            var msg = '🛒 *Medicine Order*\n\n';
+            msg += '*Order ID:* ' + orderId + '\n';
+            msg += '*Name:* ' + name + '\n';
+            msg += '*Mobile:* ' + mobile + '\n';
+            if (email) msg += '*Email:* ' + email + '\n';
+            msg += '*Address:* ' + address + ', ' + city + ' - ' + pincode + '\n';
+            msg += '*Delivery:* ' + (delivery === 'delivery' ? 'Home Delivery' : 'Store Pickup') + '\n\n';
+            msg += '*Medicines:*\n';
+            
+            medicines.forEach(function(med, i) {
+                msg += (i + 1) + '. ' + med.name + ' - Qty: ' + med.qty + '\n';
+            });
+            
+            if (note) msg += '\n*Notes:* ' + note;
+            
+            document.getElementById('successMessage').classList.remove('d-none');
+            document.getElementById('medicineOrderForm').reset();
+            
+            var extras = document.getElementById('medicineItems').querySelectorAll('.medicine-item');
+            extras.forEach(function(item, i) {
+                if (i > 0) item.remove();
+            });
+            
+            medicineCount = 1;
+            updateRemoveButtons();
+            
+            var url = 'https://wa.me/919284504673?text=' + encodeURIComponent(msg);
+            window.location.href = url;
+            
+            return false;
+        }
+        
+        window.onload = function() {
+            updateRemoveButtons();
+        };
+    </script>
 </body>
 </html>

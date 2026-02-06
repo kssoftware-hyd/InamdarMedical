@@ -9,50 +9,546 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="contact.css">
     
-    <script>
-    // INLINE JAVASCRIPT - GUARANTEED TO WORK
-    function submitContactForm() {
-        // Get values
-        var name = document.getElementById('name').value.trim();
-        var phone = document.getElementById('phone').value.trim();
-        var email = document.getElementById('email').value.trim();
-        var subject = document.getElementById('subject').value;
-        var message = document.getElementById('message').value.trim();
-        
-        // Validate
-        if (!name || !phone || !subject || !message) {
-            alert('Please fill all required fields!');
-            return false;
+    <!-- INLINE CSS - ALL STYLES IN ONE FILE -->
+    <style>
+        :root {
+            --primary-color: #0a4d68;
+            --secondary-color: #088395;
+            --accent-color: #05bfdb;
+            --light-accent: #00ffca;
+            --dark-bg: #001524;
+            --light-bg: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --success-color: #27ae60;
+            --gradient-1: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            --gradient-2: linear-gradient(135deg, #088395 0%, #05bfdb 100%);
         }
-        
-        // Get subject text
-        var subjectSelect = document.getElementById('subject');
-        var subjectText = subjectSelect.options[subjectSelect.selectedIndex].text;
-        
-        // Build message
-        var msg = 'Contact Form Inquiry\n\n';
-        msg += 'Name: ' + name + '\n';
-        msg += 'Phone: ' + phone + '\n';
-        if (email) msg += 'Email: ' + email + '\n';
-        msg += 'Subject: ' + subjectText + '\n\n';
-        msg += 'Message:\n' + message;
-        
-        // Show success
-        document.getElementById('contactSuccess').classList.remove('d-none');
-        
-        // Reset form
-        document.getElementById('contactForm').reset();
-        
-        // Open WhatsApp
-        var url = 'https://wa.me/919284504673?text=' + encodeURIComponent(msg);
-        window.location.href = url;
-        
-        return false;
-    }
-    </script>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background-color: #fff;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(10, 77, 104, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .navbar-brand i {
+            color: var(--light-accent);
+            font-size: 1.8rem;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--light-accent) !important;
+        }
+
+        .admin-link {
+            background: rgba(0, 255, 202, 0.1);
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            margin-left: 1rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 10rem 0 5rem;
+            background: var(--gradient-1);
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Info Section */
+        .contact-info-section {
+            padding: 4rem 0;
+            background: var(--light-bg);
+        }
+
+        .contact-info-card {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .whatsapp-card:hover {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(18, 140, 126, 0.1) 100%);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #fff;
+        }
+
+        .whatsapp-card .contact-icon {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+        }
+
+        .contact-info-card h4 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info-card p {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info-card a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info-card a:hover {
+            color: var(--accent-color);
+        }
+
+        .contact-info-card small {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            padding: 5rem 0;
+        }
+
+        .contact-form-card {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.2rem rgba(5, 191, 219, 0.25);
+        }
+
+        /* Map Card */
+        .map-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-card h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .direction-info {
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 15px;
+        }
+
+        .direction-info h4 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .direction-info p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        /* Quick Contact Section */
+        .quick-contact-section {
+            padding: 5rem 0;
+            background: var(--light-bg);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+
+        .quick-contact-card {
+            background: #fff;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .quick-contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .whatsapp-bg:hover {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(18, 140, 126, 0.1) 100%);
+        }
+
+        .quick-contact-card i {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .whatsapp-bg i {
+            color: #25d366;
+        }
+
+        .quick-contact-card h4 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .quick-contact-card p {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 0;
+            background: #fff;
+        }
+
+        .accordion-item {
+            border: none;
+            margin-bottom: 1rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .accordion-button {
+            background: #fff;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1.5rem;
+            border: none;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background: var(--gradient-1);
+            color: #fff;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+        }
+
+        .accordion-button::after {
+            filter: brightness(0.8);
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            filter: brightness(0) invert(1);
+        }
+
+        .accordion-body {
+            padding: 1.5rem;
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            padding: 4rem 0 1rem;
+        }
+
+        .footer-brand {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--light-accent);
+        }
+
+        .footer-desc {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            color: var(--light-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links,
+        .footer-info {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li,
+        .footer-info li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--light-accent);
+            padding-left: 5px;
+        }
+
+        .footer-info li {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #128c7e;
+            color: #fff;
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            background: var(--gradient-2);
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(5, 191, 219, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Success Alert */
+        .alert-success {
+            background-color: #d1e7dd;
+            border-color: #badbcc;
+            color: #0f5132;
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 3rem;
+            }
+            
+            .contact-form-card,
+            .map-card {
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .form-title {
+                font-size: 2rem;
+            }
+            
+            .contact-form-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .contact-info-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .quick-contact-card {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -80,7 +576,7 @@
                         <a class="nav-link active" href="contact.html">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link admin-link" href="#" data-bs-toggle="modal" data-bs-target="#adminModal">
+                        <a class="nav-link admin-link" href="admin-dashboard.html">
                             <i class="fas fa-user-shield"></i> Admin
                         </a>
                     </li>
@@ -156,9 +652,9 @@
                 <div class="col-lg-6">
                     <div class="contact-form-card">
                         <h2 class="form-title">Send Us a Message</h2>
-                        <p class="form-subtitle">Fill the form and send via WhatsApp!</p>
+                        <p class="form-subtitle">Fill the form and send directly via WhatsApp!</p>
                         
-                        <form id="contactForm" onsubmit="return submitContactForm()">
+                        <form id="contactForm" onsubmit="sendToWhatsApp(); return false;">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Your Name *</label>
                                 <input type="text" class="form-control" id="name" required>
@@ -193,7 +689,7 @@
                                 <textarea class="form-control" id="message" rows="5" required></textarea>
                             </div>
                             
-                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                            <button type="submit" class="btn btn-success btn-lg w-100">
                                 <i class="fab fa-whatsapp me-2"></i>Send via WhatsApp
                             </button>
                         </form>
@@ -409,38 +905,55 @@
         </div>
     </footer>
 
-    <!-- Admin Login Modal -->
-    <div class="modal fade" id="adminModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><i class="fas fa-user-shield me-2"></i>Admin Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="adminLoginForm">
-                        <div class="mb-3">
-                            <label for="adminUsername" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="adminUsername" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="adminPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="adminPassword" required>
-                        </div>
-                        <div class="alert alert-danger d-none" id="loginError"></div>
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- WhatsApp Float Button -->
     <a href="https://wa.me/919284504673" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+    
+    <!-- INLINE JAVASCRIPT - ALL CODE IN ONE FILE -->
+    <script>
+        function sendToWhatsApp() {
+            // Get form values
+            var name = document.getElementById('name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+            var subject = document.getElementById('subject').value;
+            var message = document.getElementById('message').value.trim();
+            
+            // Validate required fields
+            if (!name || !phone || !subject || !message) {
+                alert('⚠️ Please fill all required fields!');
+                return false;
+            }
+            
+            // Get subject text
+            var subjectSelect = document.getElementById('subject');
+            var subjectText = subjectSelect.options[subjectSelect.selectedIndex].text;
+            
+            // Build WhatsApp message
+            var whatsappMessage = '📋 *Contact Form Inquiry*\n\n';
+            whatsappMessage += '👤 *Name:* ' + name + '\n';
+            whatsappMessage += '📱 *Phone:* ' + phone + '\n';
+            if (email) {
+                whatsappMessage += '📧 *Email:* ' + email + '\n';
+            }
+            whatsappMessage += '📌 *Subject:* ' + subjectText + '\n\n';
+            whatsappMessage += '💬 *Message:*\n' + message;
+            
+            // Show success message
+            document.getElementById('contactSuccess').classList.remove('d-none');
+            
+            // Reset form
+            document.getElementById('contactForm').reset();
+            
+            // Create WhatsApp URL and open it
+            var whatsappURL = 'https://wa.me/919284504673?text=' + encodeURIComponent(whatsappMessage);
+            window.location.href = whatsappURL;
+            
+            return false;
+        }
+    </script>
 </body>
 </html>
