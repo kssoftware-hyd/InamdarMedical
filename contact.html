@@ -441,6 +441,16 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--light-accent);
+        }
+
         /* WhatsApp Float Button */
         .whatsapp-float {
             position: fixed;
@@ -652,51 +662,54 @@
                 <div class="col-lg-6">
                     <div class="contact-form-card">
                         <h2 class="form-title">Send Us a Message</h2>
-                        <p class="form-subtitle">Fill the form and send directly via WhatsApp!</p>
+                        <p class="form-subtitle">We'll receive your message via email and WhatsApp!</p>
                         
-                        <form id="contactForm" onsubmit="sendToWhatsApp(); return false;">
+                        <form id="contactForm" onsubmit="submitContactForm(); return false;">
+                            <!-- Web3Forms Access Key - REPLACE WITH YOUR KEY -->
+                            <input type="hidden" name="access_key" id="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+                            
                             <div class="mb-3">
                                 <label for="name" class="form-label">Your Name *</label>
-                                <input type="text" class="form-control" id="name" required>
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email">
+                                <label for="email" class="form-label">Email Address *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone Number *</label>
-                                <input type="tel" class="form-control" id="phone" required maxlength="10" 
+                                <input type="tel" class="form-control" id="phone" name="phone" required maxlength="10" 
                                        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
                             </div>
                             
                             <div class="mb-3">
                                 <label for="subject" class="form-label">Subject *</label>
-                                <select class="form-select" id="subject" required>
+                                <select class="form-select" id="subject" name="subject" required>
                                     <option value="">Select a subject</option>
-                                    <option value="general">General Inquiry</option>
-                                    <option value="medicine">Medicine Availability</option>
-                                    <option value="order">Order Status</option>
-                                    <option value="wholesale">Wholesale Business</option>
-                                    <option value="feedback">Feedback</option>
-                                    <option value="other">Other</option>
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Medicine Availability">Medicine Availability</option>
+                                    <option value="Order Status">Order Status</option>
+                                    <option value="Wholesale Business">Wholesale Business</option>
+                                    <option value="Feedback">Feedback</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                             
                             <div class="mb-3">
                                 <label for="message" class="form-label">Message *</label>
-                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                             </div>
                             
-                            <button type="submit" class="btn btn-success btn-lg w-100">
-                                <i class="fab fa-whatsapp me-2"></i>Send via WhatsApp
+                            <button type="submit" class="btn btn-success btn-lg w-100" id="submitBtn">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
                             </button>
                         </form>
                         
                         <div class="alert alert-success mt-4 d-none" id="contactSuccess">
                             <i class="fas fa-check-circle me-2"></i>
-                            Opening WhatsApp...
+                            <span id="successText">Sending email...</span>
                         </div>
                     </div>
                 </div>
@@ -894,12 +907,8 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 
-                    <a href="http://kssoftware.infinityfree.me/" 
-                       target="_blank" 
-                       style="color: inherit; text-decoration: none;">
-                       KS_SOFTWARE
-                    </a>
-                    . All rights reserved.
+                    <a href="https://kssoftware.co.in" target="_blank" style="color: inherit; text-decoration: none;">KS_SOFTWARE</a>
+                    . All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
                 </p>
             </div>
         </div>
@@ -912,45 +921,114 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- INLINE JAVASCRIPT - ALL CODE IN ONE FILE -->
+    <!-- INLINE JAVASCRIPT - SENDS TO EMAIL FIRST, THEN WHATSAPP -->
     <script>
-        function sendToWhatsApp() {
+        async function submitContactForm() {
             // Get form values
             var name = document.getElementById('name').value.trim();
             var email = document.getElementById('email').value.trim();
             var phone = document.getElementById('phone').value.trim();
             var subject = document.getElementById('subject').value;
             var message = document.getElementById('message').value.trim();
+            var accessKey = document.getElementById('access_key').value;
             
-            // Validate required fields
-            if (!name || !phone || !subject || !message) {
+            // Validate
+            if (!name || !email || !phone || !subject || !message) {
                 alert('⚠️ Please fill all required fields!');
                 return false;
             }
             
-            // Get subject text
-            var subjectSelect = document.getElementById('subject');
-            var subjectText = subjectSelect.options[subjectSelect.selectedIndex].text;
-            
-            // Build WhatsApp message
-            var whatsappMessage = '📋 *Contact Form Inquiry*\n\n';
-            whatsappMessage += '👤 *Name:* ' + name + '\n';
-            whatsappMessage += '📱 *Phone:* ' + phone + '\n';
-            if (email) {
-                whatsappMessage += '📧 *Email:* ' + email + '\n';
+            // Check if Web3Forms key is set
+            if (accessKey === '50665eb6-c04d-4d5d-ae2d-126fe876b2f7') {
+                alert('⚠️ Please add your Web3Forms Access Key in the HTML file!');
+                return false;
             }
-            whatsappMessage += '📌 *Subject:* ' + subjectText + '\n\n';
-            whatsappMessage += '💬 *Message:*\n' + message;
             
-            // Show success message
-            document.getElementById('contactSuccess').classList.remove('d-none');
+            // Show loading
+            var submitBtn = document.getElementById('submitBtn');
+            var successDiv = document.getElementById('contactSuccess');
+            var successText = document.getElementById('successText');
             
-            // Reset form
-            document.getElementById('contactForm').reset();
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+            successDiv.classList.remove('d-none');
+            successText.textContent = 'Sending email...';
             
-            // Create WhatsApp URL and open it
-            var whatsappURL = 'https://wa.me/919284504673?text=' + encodeURIComponent(whatsappMessage);
-            window.location.href = whatsappURL;
+            try {
+                // Send to Web3Forms
+                const formData = new FormData();
+                formData.append('access_key', accessKey);
+                formData.append('name', name);
+                formData.append('email', email);
+                formData.append('phone', phone);
+                formData.append('subject', subject);
+                formData.append('message', message);
+                
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Email sent successfully!
+                    successText.textContent = 'Email sent! Opening WhatsApp...';
+                    
+                    // Build WhatsApp message
+                    var whatsappMessage = '📋 *Contact Form Inquiry*\n\n';
+                    whatsappMessage += '👤 *Name:* ' + name + '\n';
+                    whatsappMessage += '📱 *Phone:* ' + phone + '\n';
+                    whatsappMessage += '📧 *Email:* ' + email + '\n';
+                    whatsappMessage += '📌 *Subject:* ' + subject + '\n\n';
+                    whatsappMessage += '💬 *Message:*\n' + message;
+                    
+                    // Reset form
+                    document.getElementById('contactForm').reset();
+                    
+                    // Redirect to WhatsApp after 1 second
+                    setTimeout(function() {
+                        var whatsappURL = 'https://wa.me/919284504673?text=' + encodeURIComponent(whatsappMessage);
+                        window.location.href = whatsappURL;
+                    }, 1000);
+                    
+                } else {
+                    // Error sending email
+                    successText.textContent = 'Error sending email. Opening WhatsApp...';
+                    console.error('Web3Forms error:', data);
+                    
+                    // Still open WhatsApp even if email fails
+                    setTimeout(function() {
+                        var whatsappMessage = '📋 *Contact Form Inquiry*\n\n';
+                        whatsappMessage += '👤 *Name:* ' + name + '\n';
+                        whatsappMessage += '📱 *Phone:* ' + phone + '\n';
+                        whatsappMessage += '📧 *Email:* ' + email + '\n';
+                        whatsappMessage += '📌 *Subject:* ' + subject + '\n\n';
+                        whatsappMessage += '💬 *Message:*\n' + message;
+                        
+                        var whatsappURL = 'https://wa.me/919284504673?text=' + encodeURIComponent(whatsappMessage);
+                        window.location.href = whatsappURL;
+                    }, 1500);
+                }
+                
+            } catch (error) {
+                // Network error
+                console.error('Error:', error);
+                successText.textContent = 'Network error. Opening WhatsApp...';
+                
+                // Still open WhatsApp even if email fails
+                setTimeout(function() {
+                    var whatsappMessage = '📋 *Contact Form Inquiry*\n\n';
+                    whatsappMessage += '👤 *Name:* ' + name + '\n';
+                    whatsappMessage += '📱 *Phone:* ' + phone + '\n';
+                    whatsappMessage += '📧 *Email:* ' + email + '\n';
+                    whatsappMessage += '📌 *Subject:* ' + subject + '\n\n';
+                    whatsappMessage += '💬 *Message:*\n' + message;
+                    
+                    var whatsappURL = 'https://wa.me/919284504673?text=' + encodeURIComponent(whatsappMessage);
+                    window.location.href = whatsappURL;
+                }, 1500);
+            }
             
             return false;
         }

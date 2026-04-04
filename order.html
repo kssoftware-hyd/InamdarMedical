@@ -376,6 +376,16 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--light-accent);
+        }
+
         /* WhatsApp Float Button */
         .whatsapp-float {
             position: fixed;
@@ -524,10 +534,13 @@
                         <div class="form-header">
                             <i class="fas fa-file-medical"></i>
                             <h2>Medicine Order Form</h2>
-                            <p>Fill details and send directly to WhatsApp</p>
+                            <p>We'll receive your order via email and WhatsApp</p>
                         </div>
                         
                         <form id="medicineOrderForm" onsubmit="submitOrder(); return false;">
+                            <!-- Web3Forms Access Key - REPLACE WITH YOUR KEY -->
+                            <input type="hidden" name="access_key" id="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+                            
                             <div class="row g-3">
                                 <div class="col-12">
                                     <h4 class="form-section-title"><i class="fas fa-user me-2"></i>Personal Information</h4>
@@ -535,18 +548,18 @@
                                 
                                 <div class="col-md-6">
                                     <label class="form-label">Full Name *</label>
-                                    <input type="text" class="form-control" id="customerName" required>
+                                    <input type="text" class="form-control" id="customerName" name="name" required>
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <label class="form-label">Mobile Number *</label>
-                                    <input type="tel" class="form-control" id="customerMobile" maxlength="10" 
+                                    <input type="tel" class="form-control" id="customerMobile" name="phone" maxlength="10" 
                                            oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)" required>
                                 </div>
                                 
                                 <div class="col-12">
                                     <label class="form-label">Email (Optional)</label>
-                                    <input type="email" class="form-control" id="customerEmail">
+                                    <input type="email" class="form-control" id="customerEmail" name="email">
                                 </div>
                                 
                                 <div class="col-12 mt-4">
@@ -555,17 +568,17 @@
                                 
                                 <div class="col-12">
                                     <label class="form-label">Complete Address *</label>
-                                    <textarea class="form-control" id="customerAddress" rows="3" required></textarea>
+                                    <textarea class="form-control" id="customerAddress" name="address" rows="3" required></textarea>
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <label class="form-label">City *</label>
-                                    <input type="text" class="form-control" id="customerCity" value="Bhokar" required>
+                                    <input type="text" class="form-control" id="customerCity" name="city" value="Bhokar" required>
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <label class="form-label">Pincode *</label>
-                                    <input type="text" class="form-control" id="customerPincode" maxlength="6"
+                                    <input type="text" class="form-control" id="customerPincode" name="pincode" maxlength="6"
                                            oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)" required>
                                 </div>
                                 
@@ -601,7 +614,7 @@
                                 
                                 <div class="col-12 mt-4">
                                     <label class="form-label"><i class="fas fa-file-prescription me-2"></i>Additional Notes</label>
-                                    <textarea class="form-control" id="prescriptionNote" rows="3"></textarea>
+                                    <textarea class="form-control" id="prescriptionNote" name="notes" rows="3"></textarea>
                                 </div>
                                 
                                 <div class="col-12 mt-4">
@@ -610,25 +623,26 @@
                                 
                                 <div class="col-12">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="deliveryOption" id="homeDelivery" value="delivery" checked>
+                                        <input class="form-check-input" type="radio" name="deliveryOption" id="homeDelivery" value="Home Delivery" checked>
                                         <label class="form-check-label" for="homeDelivery"><strong>Home Delivery</strong></label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="deliveryOption" id="storePickup" value="pickup">
+                                        <input class="form-check-input" type="radio" name="deliveryOption" id="storePickup" value="Store Pickup">
                                         <label class="form-check-label" for="storePickup"><strong>Store Pickup</strong></label>
                                     </div>
                                 </div>
                                 
                                 <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-success btn-lg w-100">
-                                        <i class="fab fa-whatsapp me-2"></i>Send Order via WhatsApp
+                                    <button type="submit" class="btn btn-success btn-lg w-100" id="submitBtn">
+                                        <i class="fas fa-paper-plane me-2"></i>Send Order
                                     </button>
                                 </div>
                             </div>
                         </form>
                         
                         <div class="alert alert-success mt-4 d-none" id="successMessage">
-                            <i class="fas fa-check-circle me-2"></i><strong>Opening WhatsApp...</strong>
+                            <i class="fas fa-check-circle me-2"></i>
+                            <span id="successText">Sending order...</span>
                         </div>
                     </div>
                 </div>
@@ -659,8 +673,8 @@
                     <div class="step-card">
                         <div class="step-number">2</div>
                         <i class="fab fa-whatsapp step-icon"></i>
-                        <h4>Send to WhatsApp</h4>
-                        <p>Order sent via WhatsApp</p>
+                        <h4>Send Order</h4>
+                        <p>Order sent via email & WhatsApp</p>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -722,7 +736,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 <a href="http://kssoftware.infinityfree.me/" target="_blank" style="color: inherit; text-decoration: none;">KS_SOFTWARE</a>. All rights reserved.</p>
+                <p>&copy; 2026 <a href="https://kssoftware.co.in" target="_blank" style="color: inherit; text-decoration: none;">KS_SOFTWARE</a>. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
             </div>
         </div>
     </footer>
@@ -733,7 +747,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- INLINE JAVASCRIPT -->
+    <!-- INLINE JAVASCRIPT - SENDS EMAIL FIRST, THEN WHATSAPP -->
     <script>
         var medicineCount = 1;
         
@@ -775,7 +789,7 @@
             });
         }
         
-        function submitOrder() {
+        async function submitOrder() {
             var name = document.getElementById('customerName').value.trim();
             var mobile = document.getElementById('customerMobile').value.trim();
             var email = document.getElementById('customerEmail').value.trim();
@@ -784,12 +798,21 @@
             var pincode = document.getElementById('customerPincode').value.trim();
             var note = document.getElementById('prescriptionNote').value.trim();
             var delivery = document.querySelector('input[name="deliveryOption"]:checked').value;
+            var accessKey = document.getElementById('access_key').value;
             
+            // Validate
             if (!name || !mobile || !address || !city || !pincode) {
                 alert('Please fill all required fields!');
                 return false;
             }
             
+            // Check Web3Forms key
+            if (accessKey === '50665eb6-c04d-4d5d-ae2d-126fe876b2f7') {
+                alert('⚠️ Please add your Web3Forms Access Key!');
+                return false;
+            }
+            
+            // Get medicines
             var medNames = document.querySelectorAll('.medicine-name');
             var medQty = document.querySelectorAll('.medicine-quantity');
             var medicines = [];
@@ -808,35 +831,84 @@
                 return false;
             }
             
+            // Show loading
+            var submitBtn = document.getElementById('submitBtn');
+            var successDiv = document.getElementById('successMessage');
+            var successText = document.getElementById('successText');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+            successDiv.classList.remove('d-none');
+            successText.textContent = 'Sending order email...';
+            
+            // Build order details
             var orderId = 'ORD' + Date.now();
+            var medicineList = '';
+            medicines.forEach(function(med, i) {
+                medicineList += (i + 1) + '. ' + med.name + ' - Qty: ' + med.qty + '\n';
+            });
+            
+            try {
+                // Send to Web3Forms
+                const formData = new FormData();
+                formData.append('access_key', accessKey);
+                formData.append('subject', 'Medicine Order #' + orderId);
+                formData.append('name', name);
+                formData.append('phone', mobile);
+                formData.append('email', email || 'No email provided');
+                formData.append('address', address + ', ' + city + ' - ' + pincode);
+                formData.append('delivery', delivery);
+                formData.append('medicines', medicineList);
+                formData.append('notes', note || 'No notes');
+                formData.append('order_id', orderId);
+                
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    successText.textContent = 'Email sent! Opening WhatsApp...';
+                } else {
+                    successText.textContent = 'Email error. Opening WhatsApp...';
+                    console.error('Web3Forms error:', data);
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                successText.textContent = 'Network error. Opening WhatsApp...';
+            }
+            
+            // Build WhatsApp message
             var msg = '🛒 *Medicine Order*\n\n';
             msg += '*Order ID:* ' + orderId + '\n';
             msg += '*Name:* ' + name + '\n';
             msg += '*Mobile:* ' + mobile + '\n';
             if (email) msg += '*Email:* ' + email + '\n';
             msg += '*Address:* ' + address + ', ' + city + ' - ' + pincode + '\n';
-            msg += '*Delivery:* ' + (delivery === 'delivery' ? 'Home Delivery' : 'Store Pickup') + '\n\n';
+            msg += '*Delivery:* ' + delivery + '\n\n';
             msg += '*Medicines:*\n';
-            
             medicines.forEach(function(med, i) {
                 msg += (i + 1) + '. ' + med.name + ' - Qty: ' + med.qty + '\n';
             });
-            
             if (note) msg += '\n*Notes:* ' + note;
             
-            document.getElementById('successMessage').classList.remove('d-none');
+            // Reset form
             document.getElementById('medicineOrderForm').reset();
-            
             var extras = document.getElementById('medicineItems').querySelectorAll('.medicine-item');
             extras.forEach(function(item, i) {
                 if (i > 0) item.remove();
             });
-            
             medicineCount = 1;
             updateRemoveButtons();
             
-            var url = 'https://wa.me/919284504673?text=' + encodeURIComponent(msg);
-            window.location.href = url;
+            // Redirect to WhatsApp
+            setTimeout(function() {
+                var url = 'https://wa.me/919284504673?text=' + encodeURIComponent(msg);
+                window.location.href = url;
+            }, 1000);
             
             return false;
         }
